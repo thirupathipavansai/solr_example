@@ -1,0 +1,110 @@
+What is solr ?
+
+Apache Solr is an open source search platform built upon a Java library called Lucene.
+It is capable of improving the search features of a website by providing a full-text search and performing indexing in real-time.
+Lucene uses the concept of inverted index i.e. it inverts a page-centric key (page->words) to a keyword-centric key (word->pages) for faster retrieval of search results
+
+What is Lucene ?
+
+Lucene is an open-source, full-text search library originally written in Java.
+It provides a powerful and efficient way to index, search, and retrieve information from a large collection of text documents.
+
+Key features of Lucene include:
+
+Indexing: Lucene allows you to create an index of your text documents, which involves extracting and storing terms, words, or tokens from the documents along with their associated metadata.
+This index enables fast and efficient searching.
+
+Searching: Lucene provides various querying capabilities, allowing you to search for documents that match specific criteria.
+It supports boolean operators, wildcard searches, phrase searches, fuzzy searches, and more.
+
+Scoring: Lucene employs scoring mechanisms to rank search results based on their relevance to the query.
+It uses techniques like TF-IDF (Term Frequency-Inverse Document Frequency) to assign higher scores to documents that contain query terms more frequently but are less common across the entire collection.
+
+Tokenization and Analysis: Lucene includes powerful text analysis tools for tokenizing text, removing stop words, stemming
+(reducing words to their base form), and applying other language-specific processing steps to enhance the quality of search results.
+
+Extensibility: Lucene is designed to be modular and extensible. It provides APIs that allow developers to customize various aspects of
+the indexing and searching process to fit the requirements of their applications.
+
+Support for Multiple Languages: Lucene supports indexing and searching text content in multiple languages, making it suitable for
+applications with diverse language needs.Open Source and Active Community: Lucene is open-source software, meaning its source code is
+freely available for modification and distribution. It has a large and active community of developers who contribute to its development
+and provide support to users.
+
+
+
+Let's dive deeper into the search capabilities that Lucene offers:
+
+Boolean Operators: Lucene supports boolean operators like AND, OR, and NOT to create complex queries. These operators allow you to combine multiple terms or queries to find documents that meet specific conditions. For example:
+    "apple AND orange" would return documents containing both "apple" and "orange".
+    "apple OR banana" would return documents containing either "apple" or "banana".
+    "apple NOT pie" would return documents containing "apple" but not "pie".
+
+Wildcard Searches: Lucene allows the use of wildcards to match patterns within words. The wildcard character "*" represents zero or more characters, and "?" represents a single character. For example:
+"appl*" would match "apple", "apples", "application", etc.
+"te?t" would match "text" and "test".
+
+Phrase Searches: Lucene supports searching for exact phrases by enclosing the phrase in double quotes. This ensures that the words appear in the specified order in the document. For example:
+"quick brown fox" would match documents containing the exact phrase "quick brown fox".
+
+Fuzzy Searches: Fuzzy searching is used to find terms that are similar to a given term, even if they have slight differences. The "~" symbol followed by a number indicates the maximum number of edits (insertions, deletions, or substitutions) allowed to match a term. For example:
+"roam~2" would match terms like "foam", "roams", "roamed", etc., with up to 2 edits.
+
+Proximity Searches: Lucene allows you to search for terms that appear within a certain distance of each other. The "~" symbol followed by a number represents the maximum distance between terms. For example:
+"apple orange"~3 would match documents where "apple" and "orange" appear within 3 words of each other.
+
+Range Searches: You can perform searches within a specified range of values. For example:
+"price:[100 TO 200]" would match documents with prices between 100 and 200.
+
+Boosting: Lucene allows you to assign different importance levels to terms within a query using the "^" symbol. This boosts the relevance of certain terms in the search results. For example:
+"apple^2 orange" would give higher relevance to documents containing "apple".
+
+
+How TF-IDF works?
+
+Term Frequency (TF): Term Frequency measures how often a term appears in a document. It's calculated as the ratio of the number of times a specific term appears in a document to the total number of terms in that document. A higher TF value indicates that a term is more important in that particular document. TF = (Number of occurrences of the term in the document) / (Total number of terms in the document)
+Inverse Document Frequency (IDF): Inverse Document Frequency measures how unique a term is across the entire collection of documents. It's calculated as the logarithm of the ratio of the total number of documents to the number of documents that contain the specific term. Terms that are rare across the entire collection are given higher IDF values. IDF = log(Total number of documents / Number of documents containing the term)
+TF-IDF Score: The TF-IDF score for a term within a document combines the concepts of Term Frequency and Inverse Document Frequency. It emphasizes terms that have high frequency within the document but are not too common across the entire collection. TF-IDF = TF * IDF 
+
+
+Tokenization
+
+Tokenization is the process of splitting a continuous stream of text, such as a sentence or a document, into individual units called tokens. Tokens are typically words, punctuation marks, or other meaningful elements. Tokenization is the foundational step for further text analysis and indexing because it divides the text into manageable units that can be processed and indexed.
+For example, consider the sentence: "The quick brown fox jumps over the lazy dog." After tokenization, the tokens could be: ["The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog", "."]
+
+
+Standard Tokenizer
+ The Standard Tokenizer is a versatile tokenizer that splits text into words based on Unicode word boundaries. It handles common punctuation, removes possessives, and supports various languages. This tokenizer is often used as a starting point in many text analysis pipelines.
+ Example Sentence: "Email me at john.doe@example.com to get more information about the product."
+  Standard Tokenizer: Tokens: ["Email", "me", "at", "john.doe@example.com", "to", "get", "more", "information", "about", "the", "product"]
+
+
+Whitespace Tokenizer
+
+The WhitespaceTokenizer simply splits text into tokens at whitespace characters (spaces, tabs, line breaks). It's useful when you want to treat words separated by spaces as individual tokens without additional processing.
+Example Sentence: "Email me at john.doe@example.com to get more information about the product.”
+Whitespace Tokenizer: Tokens: ["Email", "me", "at", "john.doe@example.com", "to", "get", "more", "information", "about", "the", "product."]
+
+
+
+Letter Tokenizer
+
+The LetterTokenizer breaks text into tokens using non-letter characters as delimiters. This is helpful when you want to extract sequences of letters, ignoring punctuation and other characters.
+Example Sentence: "Email me at john.doe@example.com to get more information about the product.”
+Letter Tokenizer: Tokens: ["Email", "me", "at", "john", "doe", "example", "com", "to", "get", "more", "information", "about", "the", "product"]
+
+Keyword Tokenizer
+
+
+The KeywordTokenizer treats the entire input as a single token. It's useful when you want to preserve certain terms or identifiers as-is without any tokenization or analysis.
+Example Sentence: " The quick brown fox jumps over the lazy dog.”
+Keyword Tokenizer: Treats the entire input as a single token. Example: ["The quick brown fox jumps over the lazy dog."]
+
+
+NGram Tokenizer (N=2)
+
+Lucene provides NGram tokenizers that generate tokens by sliding a moving window of a specific size (n) across the input text. This is useful for creating n-gram-based indexes that allow for partial matching and wildcard queries.
+Example Sentence: "Email me at john.doe@example.com to get more information about the product.”
+NGram Tokenizer (N=2): Generates bigrams (pairs of consecutive words). Example: ["The quick", "quick brown", "brown fox", "fox jumps", "jumps over", "over the", "the lazy", "lazy dog"]
+
+

@@ -1,2 +1,1 @@
-# solr_example
-Settin up solr in local
+Here we will discuss what is solr and it's internal mechanism
